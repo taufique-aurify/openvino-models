@@ -1,0 +1,104 @@
+;
+; mxlink.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=mxlink
+ClassGuid={842AAB4E-D365-4845-926B-505D75558ADB}
+Provider=%ManufacturerName%
+CatalogFile=mxlink.cat
+DriverVer = 11/13/2019,1.1.2.0
+;DriverVer= MM/DD/YYYY,w.x.y.z
+
+[DestinationDirs]
+DefaultDestDir = 12
+mxlink_CoInstaller_CopyFiles = 11
+
+; ================= Class section =====================
+
+[ClassInstall32]
+Addreg=mxlinkClassReg
+
+[mxlinkClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+mxlink.sys  = 1,,
+;
+
+mxlink_fw.elf = 1,,
+mxlink_fw.mvcmd = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%mxlink.DeviceDesc%=mxlink, PCI\VEN_8086&DEV_6200&SUBSYS_62008086&REV_01, PCI\VEN_8086&DEV_6200&SUBSYS_62008086&REV_02
+
+[mxlink.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+mxlink.sys
+
+[mxlink.NT.HW]
+AddReg=mxlink.HwReg, mxlink.FwReg
+
+[mxlink.HwReg]
+HKR,"Interrupt Management",,0x00000010
+HKR,"Interrupt Management\MessageSignaledInterruptProperties",,0x00000010
+HKR,"Interrupt Management\MessageSignaledInterruptProperties",MSISupported,0x00010001,1
+
+[mxlink.FwReg]
+HKR,"Device Firmware",UserSpaceFirmwareLoad,0x00010001,1
+
+;-------------- Service installation
+[mxlink.NT.Services]
+AddService = mxlink,%SPSVCINST_ASSOCSERVICE%, mxlink_Service_Inst
+
+; -------------- mxlink driver install sections
+[mxlink_Service_Inst]
+DisplayName    = %mxlink.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\mxlink.sys
+
+;
+;--- mxlink Coinstaller installation ------
+;
+
+[mxlink.NT.CoInstallers]
+AddReg=mxlink_CoInstaller_AddReg
+CopyFiles=mxlink_CoInstaller_CopyFiles
+
+[mxlink_CoInstaller_AddReg]
+;
+
+
+[mxlink_CoInstaller_CopyFiles]
+;
+
+
+[mxlink.NT.Wdf]
+KmdfService =  mxlink, mxlink_wdfsect
+[mxlink_wdfsect]
+KmdfLibraryVersion = 1.15
+
+[Strings]
+ServiceName = mxlink
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="Intel Corporation"
+ClassName="VPU"
+DiskName = "MxLink Installation Disk"
+mxlink.DeviceDesc = "MxLink Device"
+mxlink.SVCDESC = "MxLink Service"

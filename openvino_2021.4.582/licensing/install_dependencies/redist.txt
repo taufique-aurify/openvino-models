@@ -1,0 +1,1 @@
+Intel(R) Media SDK is released in terms of MIT license and content is redistributable: <install_root>/../mediasdk/*

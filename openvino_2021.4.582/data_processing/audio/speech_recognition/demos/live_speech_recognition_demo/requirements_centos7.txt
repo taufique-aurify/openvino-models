@@ -1,0 +1,6 @@
+# Python version 3.5, 3.6 or 3.7 is required due to wxPython availability
+numpy >=1.16.6, < 1.20
+SoundCard >= 0.4.1
+-f https://extras.wxpython.org/wxPython4/extras/linux/gtk3/centos-7
+wxPython >= 4.1.0; python_version >= "3.5" and python_version <= "3.7"
+

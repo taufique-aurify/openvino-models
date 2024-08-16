@@ -1,0 +1,15 @@
+4.5.3-51-gfd2b5411e (OpenVINO/2021.4)
+51
+releases/openvino/2021.4
+fd2b5411e4d73739d85d53d0c2e9bf32251c50e3
+
+General configuration for OpenCV 4.5.3-openvino =====================================
+  Version control:               fd2b5411e4d73739d85d53d0c2e9bf32251c50e3
+
+  Platform:
+    Timestamp:                   2021-06-22T10:35:20Z
+    Host:                        Windows 10.0.19043 AMD64
+    CMake:                       3.14.5
+    CMake generator:             Visual Studio 16 2019
+    CMake build tool:            C:/Program Files (x86)/Microsoft Visual Studio/2019/BuildTools/MSBuild/Current/Bin/MSBuild.exe
+    MSVC:                        1926
